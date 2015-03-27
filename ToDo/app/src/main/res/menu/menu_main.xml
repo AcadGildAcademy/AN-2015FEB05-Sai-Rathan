@@ -3,4 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/Note" android:icon="@drawable/add_new_task" android:title="Note"></item>
+    <item android:id="@+id/Complete" android:icon="@drawable/complete" android:title="Completed"></item>
 </menu>
