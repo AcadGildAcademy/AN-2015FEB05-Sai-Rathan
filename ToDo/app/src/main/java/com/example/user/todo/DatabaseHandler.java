@@ -15,53 +15,53 @@ public class DatabaseHandler extends SQLiteOpenHelper
     private static final String DATABASE_NAME = "Todo";
 
     private static final String TABLE_TODO="todohelper";
+    public int count=1;
 
 
-    private static final int KEY_ID =1;
-    private static final String KEY_TITLE="";
-    private static final String KEY_DESCRIPTION="";
-    private static final String KEY_DATE="";
-    private static final int KEY_STATUS=0;
+    private static final String KEY_ID="id";
+    private static final String KEY_TITLE="title";
+    private static final String KEY_DESCRIPTION="description";
+    private static final String KEY_DATE="date";
+    private static final String KEY_STATUS="status";
 
-    public DatabaseHandler(Context context){
+    public DatabaseHandler(Context context)
+    {
 
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
     public void onCreate(SQLiteDatabase db)
-    {
-        String CREATE_TODO_TABLE=" CREATE TABLE"+ TABLE_TODO +"("+KEY_ID+" INTEGER PRIMARY VALUE"
+{
+        String CREATE_TODO_TABLE=" CREATE TABLE"+ TABLE_TODO +"("+KEY_ID+" INTEGER PRIMARY KEY"
                 +KEY_TITLE+" TEXT"+KEY_DESCRIPTION+" TEXT"+KEY_DATE+" TEXT"
                 +KEY_STATUS+" INTEGER)";
 
         db.execSQL(CREATE_TODO_TABLE);
-    }
+}
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion)
     {
-        db.execSQL("Drop Table if Exists"+TABLE_TODO);
-
+        db.execSQL("Drop Table if Exists "+TABLE_TODO);
         onCreate(db);
     }
 
     long addToDo(Item i)
     {
         SQLiteDatabase db=this.getWritableDatabase();//update,insert,delete
-
         ContentValues cv=new ContentValues();
+        cv.put(KEY_ID,i.getId());
         cv.put(KEY_TITLE,i.getTitle());            //get title
         cv.put(KEY_DESCRIPTION,i.getDescription());//get description
         cv.put(KEY_DATE,i.getDuedate());              //get date
 
         //inserting row
         long status_insert=db.insert(TABLE_TODO,null,cv);
-
-        db.close();//closing db connection
+         db.close();//closing db connection
         return status_insert;
     }
-    long updateToDo(Item i){
+    long updateToDo(Item i)
+    {
 
         SQLiteDatabase db=this.getWritableDatabase();//update,insert,delete
-
         ContentValues cv=new ContentValues();
         cv.put(KEY_TITLE,i.getTitle());            //get title
         cv.put(KEY_DESCRIPTION,i.getDescription());//get description

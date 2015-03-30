@@ -34,6 +34,7 @@ public class MyAdapter extends ArrayAdapter<Item>
        TextView t2=(TextView)rowview.findViewById(R.id.textView2);
        TextView t3=(TextView)rowview.findViewById(R.id.textView3);
        TextView t4=(TextView)rowview.findViewById(R.id.textView4);
+
        return rowview;
 
    }
