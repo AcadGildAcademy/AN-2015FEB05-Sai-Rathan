@@ -15,7 +15,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
     private static final String DATABASE_NAME = "Todo";
 
     private static final String TABLE_TODO="todohelper";
-    public int count=1;
 
 
     private static final String KEY_ID="id";
@@ -32,8 +31,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 
     public void onCreate(SQLiteDatabase db)
 {
-        String CREATE_TODO_TABLE=" CREATE TABLE"+ TABLE_TODO +"("+KEY_ID+" INTEGER PRIMARY KEY"
-                +KEY_TITLE+" TEXT"+KEY_DESCRIPTION+" TEXT"+KEY_DATE+" TEXT"
+        String CREATE_TODO_TABLE=" CREATE TABLE"+ TABLE_TODO +"("+KEY_ID+" INTEGER PRIMARY KEY,"
+                +KEY_TITLE+" TEXT,"+KEY_DESCRIPTION+" TEXT,"+KEY_DATE+" TEXT,"
                 +KEY_STATUS+" INTEGER)";
 
         db.execSQL(CREATE_TODO_TABLE);
@@ -46,9 +45,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
 
     long addToDo(Item i)
     {
+       MainActivity m=new MainActivity();
         SQLiteDatabase db=this.getWritableDatabase();//update,insert,delete
         ContentValues cv=new ContentValues();
-        cv.put(KEY_ID,i.getId());
+        cv.put(KEY_ID,m.count);
         cv.put(KEY_TITLE,i.getTitle());            //get title
         cv.put(KEY_DESCRIPTION,i.getDescription());//get description
         cv.put(KEY_DATE,i.getDuedate());              //get date
@@ -74,8 +74,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
     }
     public void deleteToDo(Item i){
 
+
         SQLiteDatabase db=this.getWritableDatabase();
-        return db.delete(TABLE_TODO,cv,KEY_TITLE+"? AND"+KEY_DESCRIPTION+"? AND"+KEY_DATE+"? AND",new String[] {String.valueOf(i.getTitle()),
+        db.delete(TABLE_TODO,KEY_TITLE+"=? AND "+KEY_DESCRIPTION+"=? AND"+KEY_DATE+"=? AND",new String[] {String.valueOf(i.getTitle()),
                 String.valueOf(i.getDescription()),String.valueOf(i.getDuedate())});
         db.close();
     }
